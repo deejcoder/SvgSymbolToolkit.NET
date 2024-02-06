@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "WSL": {
+      "commandName": "WSL2",
+      "distributionName": ""
+    },
+    "SvgSymbolToolkit": {
+      "commandName": "Project",
+      "commandLineArgs": "-i icons.svg -o IconLoader.cs -n Blazor.WebUI -c IconLoader"
+    }
+  }
+}
