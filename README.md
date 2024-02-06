@@ -11,3 +11,6 @@ Required arguments include:
 * -o : the output path (folder and file name)
 * -n : the namespace to use in the generated code
 * -c : the class name of the class where the generated code resides
+
+
+Code generation only supports .NET 8.
