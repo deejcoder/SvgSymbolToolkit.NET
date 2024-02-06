@@ -58,41 +58,37 @@ namespace SvgSymbolToolkit.Infrastructure
             foreach (SvgSymbolInfo symbol in svgInfo.Symbols)
             {
                 string friendlyId = GetFriendlyName(symbol.Id);
-                dirtyCode += $"public const string {friendlyId} = \"{symbol.Id}\";\r\n";
+                dirtyCode += @$"public const string {friendlyId} = $""<svg class=\""icon\""><use href=\""\\{inputFileInfo.Name}#{symbol.Id}\"" /></svg>"";";
             }
 
-            dirtyCode += "\r\n";
+            dirtyCode += "\r\n\r\n";
 
             dirtyCode += $"private readonly static Dictionary<string, string> Symbols = new() {{\r\n";
 
             foreach(SvgSymbolInfo symbol in svgInfo.Symbols)
             {
                 string friendlyId = GetFriendlyName(symbol.Id);
-                dirtyCode += $"{{ nameof({friendlyId}), {friendlyId} }},\r\n";
+                dirtyCode += @$"{{ nameof({friendlyId}), {friendlyId} }},";
             }
 
-            dirtyCode += "};\r\n";
+            dirtyCode += "};\r\n\r\n";
 
             // helper function to get a symbol as a SVG
             dirtyCode += $@"public static string GetSymbolById(string id)
             {{
                 if(Symbols.TryGetValue(id, out string? value))
                 {{
-                    return $""<svg class=\""icon\""><use href=\""\\{inputFileInfo.Name}#{{value}}\"" /></svg>"";
+                    return value;
                 }}
                 return string.Empty;
             }}";
 
+            dirtyCode += "\r\n";
+
             // helper function to get a list of symbols as SVGs
             dirtyCode += $@"public static Dictionary<string, string> GetSymbols()
             {{
-                Dictionary<string, string> values = [];
-                foreach (KeyValuePair<string, string> pair in Symbols)
-                {{
-                    values.Add(pair.Key, GetSymbolById(pair.Key));
-                }}
-
-                return values;
+                return Symbols;
             }}";
 
             dirtyCode += "}";
