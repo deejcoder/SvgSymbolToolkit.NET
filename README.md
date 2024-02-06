@@ -24,3 +24,15 @@ Code generation only supports .NET 8.
 ```
 SvgSymbolToolkit.exe -i icons.svg -o IconLoader.cs -n MySolution.MyProject.MyFolder -c IconLoader
 ```
+
+
+## Post-generation usage:
+Loading a single symbol using MudBlazor:
+```
+<MudIcon Icon="@IconLoader.GetSymbolById(IconName)" ViewBox="0 0 100 100" Style="width:54px;height:54px;" />
+```
+
+To load all symbols (which returns a dictionary of symbol name and an SVG representation as the value):
+```
+IconLoader.GetSymbols()
+```
